@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block 'content' %}
+<div class="container m-5 bg-light">
+    <h1 class="display-4">{{ user.username|title }}'s Todo List </h1>
+    <a href="logout" class="btn btn-danger"> Logout </a>
+    <div class="row mt-2">
+        <div class="col">
+            <form accept="/index" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input name="title" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Add task">
+                    <button class="btn btn-success mt-2"> Add </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+         <div class="col-sm">
+            <ul class="list-group">
+                {% for todo in todos reversed %}
+                    <li class="list-group-item">{{todo.title|title}}<span class="ml-5 badge badge-danger"><a class='btn' href="delete/{{todo.id}}">Delete</a></span></li>
+                {% endfor %}
+              </ul>
+         </div>
+    </div>    
+</div>
+
+{% endblock %}
